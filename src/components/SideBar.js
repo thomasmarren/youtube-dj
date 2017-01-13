@@ -10,8 +10,8 @@ function SideBar(props){
   })
 
   return(
-    <div className="sidebar four columns">
-      <div className="sidebar-tracks">
+    <div>
+      <div>
         {sideBar}
       </div>
       <PageButtons />

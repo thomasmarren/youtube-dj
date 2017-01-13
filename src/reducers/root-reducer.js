@@ -11,19 +11,19 @@ function tracks(state = [], action){
   }
 }
 
-function leftTrack(state = {id: defaultTrack.id, title: defaultTrack.title}, action){
+function leftDeck(state = {track: {id: defaultTrack.id, title: defaultTrack.title}}, action){
   switch (action.type) {
-    case 'LOAD_LEFT_TRACK':
-      return {id: action.payload.id, title: action.payload.title}
+    case 'LOAD_LEFT_DECK':
+      return {track: {id: action.payload.id, title: action.payload.title}}
     default:
       return state
   }
 }
 
-function rightTrack(state = {id: defaultTrack.id, title: defaultTrack.title}, action){
+function rightDeck(state = {track: {id: defaultTrack.id, title: defaultTrack.title}}, action){
   switch (action.type) {
-    case 'LOAD_RIGHT_TRACK':
-      return {id: action.payload.id, title: action.payload.title}
+    case 'LOAD_RIGHT_DECK':
+      return {track: {id: action.payload.id, title: action.payload.title}}
     default:
       return state
   }
@@ -38,6 +38,6 @@ function pagination(state = {}, action){
   }
 }
 
-const rootReducer = combineReducers({tracks, leftTrack, rightTrack, pagination})
+const rootReducer = combineReducers({tracks, leftDeck, rightDeck, pagination})
 
 export default rootReducer

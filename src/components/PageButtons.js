@@ -24,9 +24,9 @@ function PageButtons(props){
   }
 
   return(
-    <div className="pagination-buttons">
+    <div>
       {previousButton}
-      <a className="next-button" onClick={handlePageMove.bind(props)}>Next</a>
+      <a onClick={handlePageMove.bind(props)}>Next</a>
     </div>
   )
 

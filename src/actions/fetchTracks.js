@@ -9,7 +9,6 @@ export function fetchTracks(searchTerm, token = ''){
       }
     })
     .then( res => {
-      debugger
       var tracks = res.data.tracks.map( track => {
         return {
           id: track.youtube_id,

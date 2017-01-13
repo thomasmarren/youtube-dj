@@ -11,10 +11,10 @@ function Search(props){
   }
 
   return(
-    <div className="search-container">
+    <div>
       <form onSubmit={handleOnSubmit.bind(props)}>
-        <input id="search-input" type='text' className="search-bar" placeholder="90s Hip Hop"/>
-        <input className="button-primary" type='submit' value="Search" />
+        <input type='text' placeholder="90s Hip Hop"/>
+        <input type='submit' value="Search" />
       </form>
     </div>
   )

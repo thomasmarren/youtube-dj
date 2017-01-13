@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { loadLeftTrack } from '../actions/loadLeftTrack'
-import { loadRightTrack } from '../actions/loadRightTrack'
+import { loadLeftDeck } from '../actions/loadLeftDeck'
+import { loadRightDeck } from '../actions/loadRightDeck'
 import { bindActionCreators } from'redux'
 
 function SideBarTrack(props){
@@ -9,16 +9,15 @@ function SideBarTrack(props){
   function handleOnClick(event){
     let data = event.currentTarget.dataset
     if(data.deck === "one"){
-      props.loadLeftTrack(data.id, data.title)
+      props.loadLeftDeck(data.id, data.title)
     } else {
-      props.loadRightTrack(data.id, data.title)
+      props.loadRightDeck(data.id, data.title)
     }
   }
 
   return(
-    <div className="sidebar-track">
-
-        <li className="list-group-item">
+    <div>
+        <li>
           <img alt={props.title} src={props.thumbnail} />
           <br />
           <p>{props.title}</p>
@@ -30,7 +29,7 @@ function SideBarTrack(props){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ loadLeftTrack, loadRightTrack }, dispatch)
+  return bindActionCreators({ loadLeftDeck, loadRightDeck }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(SideBarTrack);
