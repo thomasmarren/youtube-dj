@@ -1,0 +1,9 @@
+iframe {
+  margin: 0 auto;
+  height: 400px;
+  width: 400px;
+}
+
+.board {
+  text-align: center;
+}
