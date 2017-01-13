@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-const defaultTrack = {id: 'NZWS6CITutY', title: 'Search a Song'}
+const defaultTrack = {id: 'NZWS6CITutY', title: ''}
 
 function tracks(state = [], action){
   switch (action.type) {
@@ -11,19 +11,49 @@ function tracks(state = [], action){
   }
 }
 
-function leftDeck(state = {track: {id: defaultTrack.id, title: defaultTrack.title}}, action){
+function deck1(state = {
+  position: '1',
+  track: {
+    id: defaultTrack.id,
+    title: defaultTrack.title
+  },
+  status: {
+    volume: 100,
+    position: 0,
+    playing: false
+  }}, action){
   switch (action.type) {
-    case 'LOAD_LEFT_DECK':
-      return {track: {id: action.payload.id, title: action.payload.title}}
+    case 'LOAD_DECK_1':
+      return {...state, track: {id: action.payload.id, title: action.payload.title}}
+    case 'SET_POSITION_DECK_1':
+      return {...state, status: {...state.status, position: action.payload.position}}
+    case 'TOGGLE_PLAYING_DECK_1':
+      return {...state, status: {...state.status, playing: action.payload.playing}}
     default:
       return state
   }
 }
 
-function rightDeck(state = {track: {id: defaultTrack.id, title: defaultTrack.title}}, action){
+function deck2(state = {
+  position: '2',
+  track: {
+    id: defaultTrack.id,
+    title: defaultTrack.title
+  },
+  status: {
+    volume: 100,
+    position: 0,
+    playing: false
+  }}, action){
   switch (action.type) {
-    case 'LOAD_RIGHT_DECK':
-      return {track: {id: action.payload.id, title: action.payload.title}}
+    case 'LOAD_DECK_2':
+      return {...state, track: {id: action.payload.id, title: action.payload.title}}
+    case 'SET_POSITION_DECK_2':
+      return {...state, status: {...state.status, position: action.payload.position}}
+    case 'SET_POSITION_DECK_2':
+      return {...state, status: {...state.status, position: action.payload.position}}
+    case 'TOGGLE_PLAYING_DECK_2':
+      return {...state, status: {...state.status, playing: action.payload.playing}}
     default:
       return state
   }
@@ -38,6 +68,6 @@ function pagination(state = {}, action){
   }
 }
 
-const rootReducer = combineReducers({tracks, leftDeck, rightDeck, pagination})
+const rootReducer = combineReducers({tracks, deck1, deck2, pagination})
 
 export default rootReducer

@@ -1,18 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { loadLeftDeck } from '../actions/loadLeftDeck'
-import { loadRightDeck } from '../actions/loadRightDeck'
-import { bindActionCreators } from'redux'
+import { loadDeck } from '../actions/loadDeck'
+import { bindActionCreators } from 'redux'
 
 function SideBarTrack(props){
 
   function handleOnClick(event){
     let data = event.currentTarget.dataset
-    if(data.deck === "one"){
-      props.loadLeftDeck(data.id, data.title)
-    } else {
-      props.loadRightDeck(data.id, data.title)
-    }
+    props.loadDeck(data.id, data.title, data.deck)
   }
 
   return(
@@ -22,14 +17,14 @@ function SideBarTrack(props){
           <br />
           <p>{props.title}</p>
         </li>
-      <button data-deck="one" data-id={props.id} data-title={props.title} onClick={handleOnClick.bind(props)}>Load Deck 1</button>
-      <button data-deck="two" data-id={props.id} data-title={props.title} onClick={handleOnClick.bind(props)}>Load Deck 2</button>
+      <button data-deck="1" data-id={props.id} data-title={props.title} onClick={handleOnClick.bind(props)}>Load Deck 1</button>
+      <button data-deck="2" data-id={props.id} data-title={props.title} onClick={handleOnClick.bind(props)}>Load Deck 2</button>
     </div>
   )
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ loadLeftDeck, loadRightDeck }, dispatch)
+  return bindActionCreators({ loadDeck }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(SideBarTrack);
