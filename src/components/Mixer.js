@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Deck from './Deck'
+import CrossFader from './CrossFader'
 import { connect } from 'react-redux';
 
 class Mixer extends Component {
@@ -9,7 +10,10 @@ class Mixer extends Component {
     return(
       <div>
         <Deck deck={this.props.deck1} />
-        <h1 id="mixer" className="two columns">CONTROLLER</h1>
+        <div id="mixer" className="two columns">
+          <h1>CONTROLLER</h1>
+          <CrossFader />
+        </div>
         <Deck deck={this.props.deck2}/>
       </div>
     )
