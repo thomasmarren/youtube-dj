@@ -1,17 +1,17 @@
 import React from 'react';
 import PageButtons from './PageButtons'
-import SideBarVideo from './SideBarVideo'
+import SideBarTrack from './SideBarTrack'
 import { connect } from 'react-redux';
 
 function SideBar(props){
 
-  let sideBar = props.sideBarVideos.map((sideBarVideo) => {
-    return <SideBarVideo id={sideBarVideo.id} title={sideBarVideo.title} thumbnail={sideBarVideo.thumbnail}/>
+  let sideBar = props.sideBarTracks.map((sideBarTrack) => {
+    return <SideBarTrack id={sideBarTrack.id} title={sideBarTrack.title} thumbnail={sideBarTrack.thumbnail}/>
   })
 
   return(
     <div className="sidebar four columns">
-      <div className="sidebar-videos">
+      <div className="sidebar-tracks">
         {sideBar}
       </div>
       <PageButtons />
@@ -20,7 +20,7 @@ function SideBar(props){
 }
 
 function mapStateToProps(state){
-  return { sideBarVideos: state.videos }
+  return { sideBarTracks: state.tracks }
 }
 
 export default connect(mapStateToProps)(SideBar);

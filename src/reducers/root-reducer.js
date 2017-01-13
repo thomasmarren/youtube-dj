@@ -1,28 +1,28 @@
 import { combineReducers } from 'redux'
 
-const defaultVideo = {id: 'NZWS6CITutY', title: 'Search a Song'}
+const defaultTrack = {id: 'NZWS6CITutY', title: 'Search a Song'}
 
-function videos(state = [], action){
+function tracks(state = [], action){
   switch (action.type) {
-    case "FETCH_VIDEOS":
-      return action.payload.videos
+    case "FETCH_TRACKS":
+      return action.payload.tracks
     default:
       return state
   }
 }
 
-function leftVideo(state = {id: defaultVideo.id, title: defaultVideo.title}, action){
+function leftTrack(state = {id: defaultTrack.id, title: defaultTrack.title}, action){
   switch (action.type) {
-    case 'LOAD_LEFT_VIDEO':
+    case 'LOAD_LEFT_TRACK':
       return {id: action.payload.id, title: action.payload.title}
     default:
       return state
   }
 }
 
-function rightVideo(state = {id: defaultVideo.id, title: defaultVideo.title}, action){
+function rightTrack(state = {id: defaultTrack.id, title: defaultTrack.title}, action){
   switch (action.type) {
-    case 'LOAD_RIGHT_VIDEO':
+    case 'LOAD_RIGHT_TRACK':
       return {id: action.payload.id, title: action.payload.title}
     default:
       return state
@@ -31,13 +31,13 @@ function rightVideo(state = {id: defaultVideo.id, title: defaultVideo.title}, ac
 
 function pagination(state = {}, action){
   switch (action.type) {
-  case "FETCH_VIDEOS":
+  case "FETCH_TRACKS":
     return action.payload.tokens
   default:
     return state
   }
 }
 
-const rootReducer = combineReducers({videos, leftVideo, rightVideo, pagination})
+const rootReducer = combineReducers({tracks, leftTrack, rightTrack, pagination})
 
 export default rootReducer

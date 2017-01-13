@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchVideos } from '../actions/fetchVideos'
+import { fetchTracks } from '../actions/fetchTracks'
 import { bindActionCreators } from'redux';
 
 function PageButtons(props){
@@ -12,9 +12,9 @@ function PageButtons(props){
       searchTerm = document.getElementById('search-input').placeholder
     }
     if(event.currentTarget.innerHTML === 'Next'){
-      props.fetchVideos(searchTerm, props.nextPageToken)
+      props.fetchTracks(searchTerm, props.nextPageToken)
     } else {
-      props.fetchVideos(searchTerm, props.prevPageToken)
+      props.fetchTracks(searchTerm, props.prevPageToken)
     }
   }
 
@@ -40,7 +40,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ fetchVideos }, dispatch)
+  return bindActionCreators({ fetchTracks }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageButtons);

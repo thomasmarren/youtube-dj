@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchVideos } from '../actions/fetchVideos';
+import { fetchTracks } from '../actions/fetchTracks';
 import { bindActionCreators } from'redux';
 import { connect } from 'react-redux';
 
@@ -7,7 +7,7 @@ function Search(props){
 
   function handleOnSubmit(event){
     event.preventDefault()
-    props.fetchVideos(event.currentTarget.children[0].value)
+    props.fetchTracks(event.currentTarget.children[0].value)
   }
 
   return(
@@ -23,7 +23,7 @@ function Search(props){
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    fetchVideos: fetchVideos,
+    fetchTracks: fetchTracks,
   }, dispatch)
 }
 

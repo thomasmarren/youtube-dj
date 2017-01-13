@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import App from './components/App'
 import store from './store'
 import { Provider } from 'react-redux'
-import { fetchVideos } from './actions/fetchVideos'
+import { fetchTracks } from './actions/fetchTracks'
 
-store.dispatch(fetchVideos('90s Hip Hop'))
+store.dispatch(fetchTracks('90s Hip Hop'))
 
 ReactDOM.render(<Provider store={store}>
   <App />
