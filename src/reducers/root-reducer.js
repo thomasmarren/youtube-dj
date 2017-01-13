@@ -18,7 +18,7 @@ function deck1(state = {
     title: defaultTrack.title
   },
   status: {
-    volume: 100,
+    volume: 50,
     position: 0,
     playing: false
   }}, action){
@@ -29,6 +29,10 @@ function deck1(state = {
       return {...state, status: {...state.status, position: action.payload.position}}
     case 'TOGGLE_PLAYING_DECK_1':
       return {...state, status: {...state.status, playing: action.payload.playing}}
+    case 'ADJUST_VOLUME_DECK_1':
+      return {...state, status: {...state.status, volume: action.payload.slider}}
+    case 'CROSSFADE':
+
     default:
       return state
   }
@@ -41,7 +45,7 @@ function deck2(state = {
     title: defaultTrack.title
   },
   status: {
-    volume: 100,
+    volume: 50,
     position: 0,
     playing: false
   }}, action){

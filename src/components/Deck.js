@@ -4,18 +4,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import setPosition from '../actions/setPosition'
 import togglePlaying from '../actions/togglePlaying'
+import adjustVolume from '../actions/adjustVolume'
 
 class Deck extends Component {
 
   constructor(props){
     super(props)
-    this.state = {
-      volume: 100,
-      position: 0,
-      playing: false
-    }
     this.handleSetPosition = this.handleSetPosition.bind(this)
     this.handleTogglePlaying = this.handleTogglePlaying.bind(this)
+    this.handleVolumeChange = this.handleVolumeChange.bind(this)
   }
 
   handleTogglePlaying(){
@@ -24,6 +21,11 @@ class Deck extends Component {
 
   handleSetPosition(position) {
     this.props.setPosition(position, this.props.deck);
+  }
+
+  handleVolumeChange(event){
+    var slider = event.currentTarget.value
+    this.props.adjustVolume(slider, this.props.deck)
   }
 
   render(){
@@ -45,6 +47,7 @@ class Deck extends Component {
 
         onProgress={this.handleSetPosition}
       / >
+      <input onChange={this.handleVolumeChange} type="range" min={0} max={100} step={1} />
       <button onClick={this.handleTogglePlaying}>
         {this.props.deck.status.playing ? "Pause" : "Play"}
       </button>
@@ -58,7 +61,7 @@ class Deck extends Component {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ setPosition, togglePlaying }, dispatch)
+  return bindActionCreators({ setPosition, togglePlaying, adjustVolume }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Deck);
