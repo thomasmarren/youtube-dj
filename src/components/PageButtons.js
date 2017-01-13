@@ -1,0 +1,46 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchVideos } from '../actions/fetchVideos'
+import { bindActionCreators } from'redux';
+
+function PageButtons(props){
+
+  function handlePageMove(event){
+    event.preventDefault()
+    var searchTerm = document.getElementById('search-input').value
+    if (searchTerm === ""){
+      searchTerm = document.getElementById('search-input').placeholder
+    }
+    if(event.currentTarget.innerHTML === 'Next'){
+      props.fetchVideos(searchTerm, props.nextPageToken)
+    } else {
+      props.fetchVideos(searchTerm, props.prevPageToken)
+    }
+  }
+
+  var previousButton = <a className="previous-button" onClick={handlePageMove.bind(props)}>Previous</a>
+  if (props.prevPageToken === undefined){
+    previousButton = <a className="previous-button" style={{visibility: 'hidden'}} onClick={handlePageMove.bind(props)}>Previous</a>
+  }
+
+  return(
+    <div className="pagination-buttons">
+      {previousButton}
+      <a className="next-button" onClick={handlePageMove.bind(props)}>Next</a>
+    </div>
+  )
+
+}
+
+function mapStateToProps(state){
+  return {
+    nextPageToken: state.pagination.nextPageToken,
+    prevPageToken: state.pagination.prevPageToken
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({ fetchVideos }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageButtons);
