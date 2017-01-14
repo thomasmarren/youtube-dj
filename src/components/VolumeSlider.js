@@ -16,9 +16,10 @@ class VolumeSlider extends Component {
   }
 
   render(){
+
     return(
-      <div style={{"display": "inline"}}>
-        <input id={this.props.id} className={this.props.className} onChange={this.handleVolumeChange} type="range" orient="vertical" min={0} max={100} step={1} value={this.props.deck.status.volume} />
+      <div style={{"display": "inline-block"}}>
+        <input id={this.props.id} className="volume" onChange={this.handleVolumeChange} type="range" orient="vertical" min={0} max={100} step={1} value={this.props.deck.status.volume} />
       </div>
     )
   }

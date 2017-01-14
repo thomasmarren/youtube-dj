@@ -1,6 +1,6 @@
 export default function crossFade(sliderStr, decks){
 
-  var slider = parseInt(sliderStr)
+  var slider = parseInt(sliderStr, 10)
   var type
   var ratio
 

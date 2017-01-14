@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux'
 import setDuration from '../actions/setDuration'
 import setPosition from '../actions/setPosition'
 import togglePlaying from '../actions/togglePlaying'
-import VolumeSlider from './VolumeSlider'
+import restartTrack from '../actions/restartTrack'
+import TrackProgressBar from './TrackProgressBar'
 
 class Deck extends Component {
 
@@ -13,6 +14,7 @@ class Deck extends Component {
     super(props)
     this.handleOnReady = this.handleOnReady.bind(this)
     this.handleSetPosition = this.handleSetPosition.bind(this)
+    this.handleRestartTrack = this.handleRestartTrack.bind(this)
     this.handleTogglePlaying = this.handleTogglePlaying.bind(this)
   }
 
@@ -20,12 +22,16 @@ class Deck extends Component {
     this.props.setDuration(duration, this.props.deck)
   }
 
-  handleTogglePlaying(){
-    this.props.togglePlaying(!this.props.deck.status.playing, this.props.deck)
-  }
-
   handleSetPosition(position) {
     this.props.setPosition(position, this.props.deck);
+  }
+
+  handleRestartTrack() {
+    this.props.restartTrack(this.props.deck);
+  }
+
+  handleTogglePlaying(){
+    this.props.togglePlaying(!this.props.deck.status.playing, this.props.deck)
   }
 
   render(){
@@ -33,30 +39,23 @@ class Deck extends Component {
     let position = Math.floor(this.props.deck.status.position / 1000)
     let duration = Math.floor(this.props.deck.status.duration / 1000)
 
+    function convertElapsedTime(inputSeconds){
+      let seconds = inputSeconds % 60
+      if(seconds < 10){ seconds = "0" + seconds}
+      let minutes = Math.floor(inputSeconds / 60)
+      return minutes + ":" + seconds
+    }
+
     var volume = this.props.deck.status.volume
     if(this.props.deck.crossFader.active){
       volume = Math.floor(((this.props.deck.crossFader.ratio * 2) * .01) * this.props.deck.status.volume)
     }
 
-    var volumeSliderDeck1
-    var volumeSliderDeck2
-    if(this.props.deck.position === "1"){
-      volumeSliderDeck1 = <VolumeSlider id={"left-volume"} className={"volume"} deck={this.props.deck}/>
-      volumeSliderDeck2 = <span display="hidden" />
-    } else {
-      volumeSliderDeck1 = <span display="hidden" />
-      volumeSliderDeck2 = <VolumeSlider id={"right-volume"} className={"volume"} deck={this.props.deck}/>
-    }
-
-
     return(
       <div className="five columns">
-      <p>Volume: {volume}</p>
       <div>
-      <h2>{position}s</h2>
-      <h2>{duration}s</h2>
+      <TrackProgressBar deck={this.props.deck}/>
       <div id="video-volume">
-        {volumeSliderDeck2}
         <YouTubeVideo
           position={this.props.deck.status.position}
           videoId={this.props.deck.track.id}
@@ -69,9 +68,12 @@ class Deck extends Component {
           onReady={this.handleOnReady}
           onProgress={this.handleSetPosition}
         / >
-        {volumeSliderDeck1}
       </div>
-      <br />
+      <p>Volume: {volume}</p>
+      <p>{convertElapsedTime(position)}/{convertElapsedTime(duration)}</p>
+      <button onClick={this.handleRestartTrack}>
+        Back to Start
+      </button>
       <button onClick={this.handleTogglePlaying}>
         {this.props.deck.status.playing ? "Pause" : "Play"}
       </button>
@@ -85,7 +87,7 @@ class Deck extends Component {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ setDuration, setPosition, togglePlaying }, dispatch)
+  return bindActionCreators({ setDuration, setPosition, restartTrack, togglePlaying }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Deck);

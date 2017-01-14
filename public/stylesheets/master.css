@@ -15,6 +15,15 @@
 }
 
 /*********
+TRACK PROGRESS BAR
+*********/
+
+.track-progress-bar {
+  width: 80%;
+  margin: 50px 0;
+}
+
+/*********
 VOLUME
 *********/
 
@@ -26,12 +35,8 @@ input[type=range][orient=vertical].volume
     height: 300px;
 }
 
-#left-volume {
-  margin-left: 50px;
-}
-
-#right-volume {
-  margin-right: 50px;
+.volume {
+  margin: 0 50px;
 }
 
 /*********

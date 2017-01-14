@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Deck from './Deck'
 import CrossFader from './CrossFader'
 import { connect } from 'react-redux';
+import VolumeSlider from './VolumeSlider'
 
 class Mixer extends Component {
 
@@ -11,7 +12,8 @@ class Mixer extends Component {
       <div>
         <Deck deck={this.props.deck1} />
         <div id="controller" className="two columns">
-          <h1>CONTROLLER</h1>
+          <VolumeSlider id={"left-volume"} deck={this.props.deck1}/>
+          <VolumeSlider id={"right-volume"} deck={this.props.deck2}/>
           <CrossFader />
         </div>
         <Deck deck={this.props.deck2}/>
