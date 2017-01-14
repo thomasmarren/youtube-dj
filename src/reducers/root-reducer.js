@@ -36,11 +36,14 @@ function deck1(state = {
   status: {
     volume: 100,
     position: 0,
+    duration: 0,
     playing: false
   }}, action){
   switch (action.type) {
     case 'LOAD_DECK_1':
       return {...state, track: {id: action.payload.id, title: action.payload.title}}
+    case 'SET_DURATION_DECK_1':
+      return {...state, status: {...state.status, duration: action.payload.duration}}
     case 'SET_POSITION_DECK_1':
       return {...state, status: {...state.status, position: action.payload.position}}
     case 'TOGGLE_PLAYING_DECK_1':
@@ -70,11 +73,14 @@ function deck2(state = {
   status: {
     volume: 100,
     position: 0,
+    duration: 0,
     playing: false
   }}, action){
   switch (action.type) {
     case 'LOAD_DECK_2':
       return {...state, track: {id: action.payload.id, title: action.payload.title}}
+    case 'SET_DURATION_DECK_2':
+      return {...state, status: {...state.status, duration: action.payload.duration}}
     case 'SET_POSITION_DECK_2':
       return {...state, status: {...state.status, position: action.payload.position}}
     case 'TOGGLE_PLAYING_DECK_2':

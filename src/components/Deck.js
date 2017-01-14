@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import YouTubeVideo from 'stateful-react-youtube'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import setDuration from '../actions/setDuration'
 import setPosition from '../actions/setPosition'
 import togglePlaying from '../actions/togglePlaying'
 import VolumeSlider from './VolumeSlider'
@@ -10,8 +11,13 @@ class Deck extends Component {
 
   constructor(props){
     super(props)
+    this.handleOnReady = this.handleOnReady.bind(this)
     this.handleSetPosition = this.handleSetPosition.bind(this)
     this.handleTogglePlaying = this.handleTogglePlaying.bind(this)
+  }
+
+  handleOnReady({ duration }) {
+    this.props.setDuration(duration, this.props.deck)
   }
 
   handleTogglePlaying(){
@@ -24,7 +30,8 @@ class Deck extends Component {
 
   render(){
 
-    let duration = Math.floor(this.props.deck.status.position / 1000)
+    let position = Math.floor(this.props.deck.status.position / 1000)
+    let duration = Math.floor(this.props.deck.status.duration / 1000)
 
     var volume = this.props.deck.status.volume
     if(this.props.deck.crossFader.active){
@@ -46,6 +53,7 @@ class Deck extends Component {
       <div className="five columns">
       <p>Volume: {volume}</p>
       <div>
+      <h2>{position}s</h2>
       <h2>{duration}s</h2>
       <div id="video-volume">
         {volumeSliderDeck2}
@@ -58,6 +66,7 @@ class Deck extends Component {
             controls: 0
           }}
 
+          onReady={this.handleOnReady}
           onProgress={this.handleSetPosition}
         / >
         {volumeSliderDeck1}
@@ -76,7 +85,7 @@ class Deck extends Component {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ setPosition, togglePlaying }, dispatch)
+  return bindActionCreators({ setDuration, setPosition, togglePlaying }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Deck);
