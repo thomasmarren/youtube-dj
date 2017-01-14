@@ -7,23 +7,29 @@ class CrossFader extends Component {
 
   constructor(props){
     super(props)
-    this.state = {
-      slider: 50
-    }
+    // this.state = {
+    //   slider: 50
+    // }
     this.handleChange = this.handleChange.bind(this)
+    this.resetCrossFader = this.resetCrossFader.bind(this)
   }
 
   handleChange(event){
     var slider = event.currentTarget.value
-    // this.props.crossFade(slider, this.props.decks)
-    this.setState({slider: slider})
+    this.props.crossFade(slider, this.props.decks)
+    // this.setState({slider: slider})
+  }
+
+  resetCrossFader(){
+    this.props.crossFade('50', this.props.decks)
+    // this.setState({slider: 50})
   }
 
   render() {
     return (
       <div>
-        <h1>{this.state.slider}</h1>
-        <input onChange={this.handleChange} type="range" min={0} max={100} step={1} />
+        <h1>{this.props.slider}</h1>
+        <input className="cross-fader-slider" onDoubleClick={this.resetCrossFader} onChange={this.handleChange} type="range" min={0} max={100} step={1} value={this.props.slider}/>
       </div>
     )
   }
@@ -31,6 +37,7 @@ class CrossFader extends Component {
 
 function mapStateToProps(state){
   return {
+    slider: state.crossFader.slider,
     decks: {deck1: state.deck1, deck2: state.deck2}
   }
 }

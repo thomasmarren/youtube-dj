@@ -10,7 +10,7 @@ class Mixer extends Component {
     return(
       <div>
         <Deck deck={this.props.deck1} />
-        <div id="mixer" className="two columns">
+        <div id="controller" className="two columns">
           <h1>CONTROLLER</h1>
           <CrossFader />
         </div>

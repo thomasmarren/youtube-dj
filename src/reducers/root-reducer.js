@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
-const defaultTrack = {id: 'NZWS6CITutY', title: ''}
+const defaultDeck1 = {id: 'A-tE4Is0I5M', title: ''}
+const defaultDeck2 = {id: 'UuHHzRuSVYQ', title: ''}
 
 function tracks(state = [], action){
   switch (action.type) {
@@ -11,14 +12,29 @@ function tracks(state = [], action){
   }
 }
 
+function crossFader(state = {slider: 50}, action){
+  switch (action.type) {
+    case 'CROSS_FADE_DECK_1':
+    case 'CROSS_FADE_DECK_2':
+    case 'RESET_CROSS_FADE':
+      return {slider: action.payload.slider}
+    default:
+      return state
+  }
+}
+
 function deck1(state = {
   position: '1',
   track: {
-    id: defaultTrack.id,
-    title: defaultTrack.title
+    id: defaultDeck1.id,
+    title: defaultDeck1.title
+  },
+  crossFader: {
+    active: false,
+    ratio: 50
   },
   status: {
-    volume: 50,
+    volume: 100,
     position: 0,
     playing: false
   }}, action){
@@ -31,8 +47,11 @@ function deck1(state = {
       return {...state, status: {...state.status, playing: action.payload.playing}}
     case 'ADJUST_VOLUME_DECK_1':
       return {...state, status: {...state.status, volume: action.payload.slider}}
-    case 'CROSSFADE':
-
+    case 'CROSS_FADE_DECK_1':
+      return {...state, crossFader: {active: true, ratio: action.payload.ratio}}
+    case 'CROSS_FADE_DECK_2':
+    case 'RESET_CROSS_FADE':
+      return {...state, crossFader: {active: false, ratio: 50}}
     default:
       return state
   }
@@ -41,11 +60,15 @@ function deck1(state = {
 function deck2(state = {
   position: '2',
   track: {
-    id: defaultTrack.id,
-    title: defaultTrack.title
+    id: defaultDeck2.id,
+    title: defaultDeck2.title
+  },
+  crossFader: {
+    active: false,
+    ratio: 50
   },
   status: {
-    volume: 50,
+    volume: 100,
     position: 0,
     playing: false
   }}, action){
@@ -54,10 +77,15 @@ function deck2(state = {
       return {...state, track: {id: action.payload.id, title: action.payload.title}}
     case 'SET_POSITION_DECK_2':
       return {...state, status: {...state.status, position: action.payload.position}}
-    case 'SET_POSITION_DECK_2':
-      return {...state, status: {...state.status, position: action.payload.position}}
     case 'TOGGLE_PLAYING_DECK_2':
       return {...state, status: {...state.status, playing: action.payload.playing}}
+    case 'ADJUST_VOLUME_DECK_2':
+      return {...state, status: {...state.status, volume: action.payload.slider}}
+    case 'CROSS_FADE_DECK_2':
+      return {...state, crossFader: {active: true, ratio: action.payload.ratio}}
+    case 'CROSS_FADE_DECK_1':
+    case 'RESET_CROSS_FADE':
+      return {...state, crossFader: {active: false, ratio: 50}}
     default:
       return state
   }
@@ -72,6 +100,6 @@ function pagination(state = {}, action){
   }
 }
 
-const rootReducer = combineReducers({tracks, deck1, deck2, pagination})
+const rootReducer = combineReducers({tracks, crossFader, deck1, deck2, pagination})
 
 export default rootReducer
