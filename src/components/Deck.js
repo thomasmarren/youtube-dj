@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import setPosition from '../actions/setPosition'
 import togglePlaying from '../actions/togglePlaying'
-import adjustVolume from '../actions/adjustVolume'
+import VolumeSlider from './VolumeSlider'
 
 class Deck extends Component {
 
@@ -12,7 +12,6 @@ class Deck extends Component {
     super(props)
     this.handleSetPosition = this.handleSetPosition.bind(this)
     this.handleTogglePlaying = this.handleTogglePlaying.bind(this)
-    this.handleVolumeChange = this.handleVolumeChange.bind(this)
   }
 
   handleTogglePlaying(){
@@ -21,11 +20,6 @@ class Deck extends Component {
 
   handleSetPosition(position) {
     this.props.setPosition(position, this.props.deck);
-  }
-
-  handleVolumeChange(event){
-    var slider = event.currentTarget.value
-    this.props.adjustVolume(slider, this.props.deck)
   }
 
   render(){
@@ -37,22 +31,20 @@ class Deck extends Component {
       volume = Math.floor(((this.props.deck.crossFader.ratio * 2) * .01) * this.props.deck.status.volume)
     }
 
-    var volumeSlider = <input id="left-volume" className="volume cross-fader-slider" onChange={this.handleVolumeChange} type="range" min={0} max={100} step={1} value={this.props.deck.status.volume} />
     var volumeSliderDeck1
     var volumeSliderDeck2
     if(this.props.deck.position === "1"){
-      volumeSliderDeck1 = volumeSlider
+      volumeSliderDeck1 = <VolumeSlider id={"left-volume"} className={"volume"} deck={this.props.deck}/>
       volumeSliderDeck2 = <span display="hidden" />
     } else {
       volumeSliderDeck1 = <span display="hidden" />
-      volumeSliderDeck2 = <input id="right-volume" className="volume cross-fader-slider" onChange={this.handleVolumeChange} type="range" min={0} max={100} step={1} value={this.props.deck.status.volume} />
+      volumeSliderDeck2 = <VolumeSlider id={"right-volume"} className={"volume"} deck={this.props.deck}/>
     }
 
 
     return(
       <div className="five columns">
-      <h1>CrossFader Active? {this.props.deck.crossFader.active.toString()}</h1>
-      <h1>TrueVolume {volume}</h1>
+      <p>Volume: {volume}</p>
       <div>
       <h2>{duration}s</h2>
       <div id="video-volume">
@@ -84,7 +76,7 @@ class Deck extends Component {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ setPosition, togglePlaying, adjustVolume }, dispatch)
+  return bindActionCreators({ setPosition, togglePlaying }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Deck);

@@ -2,20 +2,9 @@
   font-family: sans-serif;
 }
 
-/*iframe {
-  margin: 0 auto;
-  height: 400px;
-  width: 400px;
-}*/
-
 .video {
   display: inline-block;
 }
-
-/*#video-volume div {
-  width: 200px;
-  margin: 0;
-}*/
 
 .board {
   text-align: center;
@@ -28,6 +17,14 @@
 /*********
 VOLUME
 *********/
+
+input[type=range][orient=vertical].volume
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 1px;
+    height: 300px;
+}
 
 #left-volume {
   margin-left: 50px;
