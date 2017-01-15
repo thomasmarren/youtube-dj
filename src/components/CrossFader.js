@@ -23,7 +23,6 @@ class CrossFader extends Component {
   render() {
     return (
       <div>
-        <h1>{this.props.slider}</h1>
         <input className="cross-fader-slider" onDoubleClick={this.resetCrossFader} onChange={this.handleChange} type="range" min={0} max={100} step={1} value={this.props.slider}/>
       </div>
     )

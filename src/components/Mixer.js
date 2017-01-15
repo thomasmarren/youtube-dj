@@ -14,6 +14,8 @@ class Mixer extends Component {
         <div id="controller" className="two columns">
           <VolumeSlider id={"left-volume"} deck={this.props.deck1}/>
           <VolumeSlider id={"right-volume"} deck={this.props.deck2}/>
+          <br />
+          <br />
           <CrossFader />
         </div>
         <Deck deck={this.props.deck2}/>
