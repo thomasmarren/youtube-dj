@@ -39,13 +39,6 @@ class Deck extends Component {
     let position = Math.floor(this.props.deck.status.position / 1000)
     let duration = Math.floor(this.props.deck.status.duration / 1000)
 
-    function convertElapsedTime(inputSeconds){
-      let seconds = inputSeconds % 60
-      if(seconds < 10){ seconds = "0" + seconds}
-      let minutes = Math.floor(inputSeconds / 60)
-      return minutes + ":" + seconds
-    }
-
     var volume = this.props.deck.status.volume
     if(this.props.deck.crossFader.active){
       volume = Math.floor(((this.props.deck.crossFader.ratio * 2) * .01) * this.props.deck.status.volume)
@@ -54,6 +47,7 @@ class Deck extends Component {
     return(
       <div className="five columns">
       <div>
+      <p>{this.props.deck.track.title}</p>
       <p>{convertElapsedTime(position)}/{convertElapsedTime(duration)}</p>
       <TrackProgressBar deck={this.props.deck}/>
       <div id="video-volume">
@@ -79,11 +73,17 @@ class Deck extends Component {
       </button>
       </div>
       <br />
-      <h3>{this.props.deck.track.title}</h3>
       </div>
     )
-  }
 
+    function convertElapsedTime(inputSeconds){
+      let seconds = inputSeconds % 60
+      if(seconds < 10){ seconds = "0" + seconds}
+      let minutes = Math.floor(inputSeconds / 60)
+      return minutes + ":" + seconds
+    }
+
+  }
 }
 
 function mapDispatchToProps(dispatch){

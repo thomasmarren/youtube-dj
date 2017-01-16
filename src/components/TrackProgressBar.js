@@ -9,20 +9,20 @@ class TrackProgressBar extends Component {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleMouseMove = this.handleMouseMove.bind(this)
+    this.handleMouseDown = this.handleMouseDown.bind(this)
+    this.handleMouseUp = this.handleMouseUp.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.state = {
-      x: 0
+      x: 0,
+      mouseDown: false
     }
   }
 
   componentDidUpdate(){
     let c = this.refs.myCanvas.getContext('2d');
     c.clearRect(0,0,500,100);
-    // c.clearRect(0,0,500,100);
     let percentage = this.props.deck.status.position / this.props.deck.status.duration
-    let progress = ((500 * percentage) - 500)
-    // c.fillRect(0,0,progress,80)
-
+    let progress = (500 * percentage)
     let image = this.refs.coverWaves
     c.drawImage(image,progress,0)
   }
@@ -35,8 +35,25 @@ class TrackProgressBar extends Component {
   handleMouseMove(evt){
     let c = this.refs.myCanvas
     var canvas = c.getBoundingClientRect();
-    var mousePos = { x: evt.clientX - canvas.left, y: evt.clientY - canvas.top}
+    var mousePos = { x: evt.clientX - canvas.left}
     this.setState({x: mousePos.x})
+
+    if(this.state.mouseDown){
+      let percentage = this.state.x / 500
+      let position = this.props.deck.status.duration * percentage
+      this.props.setPosition(position, this.props.deck)
+    }
+
+  }
+
+  handleMouseDown(){
+    this.refs.myCanvas.style.cursor = "-webkit-grabbing"
+    this.setState({mouseDown: true})
+  }
+
+  handleMouseUp(){
+    this.refs.myCanvas.style.cursor = "-webkit-grab"
+    this.setState({mouseDown: false})
   }
 
   handleClick(){
@@ -52,13 +69,15 @@ class TrackProgressBar extends Component {
     return(
       <div>
         <canvas
-          style={{"backgroundImage": "url('/images/waves.jpg')"}}
+          style={{"backgroundImage": "url('/images/waves.jpg')", "cursor": "-webkit-grab"}}
           ref="myCanvas"
           width="500"
           height="80"
           data-percentage={percentage}
           onMouseMove={this.handleMouseMove}
           onClick={this.handleClick}
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
         />
         <img ref="coverWaves" src="/images/cover-waves.png" style={{"display": "none"}}/>
       </div>

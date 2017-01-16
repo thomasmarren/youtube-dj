@@ -2,6 +2,10 @@
   font-family: sans-serif;
 }
 
+iframe {
+  width: 500px;
+}
+
 .video {
   display: inline-block;
 }

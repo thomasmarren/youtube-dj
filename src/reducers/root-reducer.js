@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-const defaultDeck1 = {id: 'A-tE4Is0I5M', title: ''}
-const defaultDeck2 = {id: 'UuHHzRuSVYQ', title: ''}
+const defaultDeck1 = {id: 'A-tE4Is0I5M', title: 'MF DOOM - My Favorite Ladies'}
+const defaultDeck2 = {id: 'UuHHzRuSVYQ', title: 'Gramatik - Dungeon Sound'}
 
 function tracks(state = [], action){
   switch (action.type) {
