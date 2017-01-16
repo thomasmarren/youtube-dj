@@ -54,6 +54,7 @@ class Deck extends Component {
     return(
       <div className="five columns">
       <div>
+      <p>{convertElapsedTime(position)}/{convertElapsedTime(duration)}</p>
       <TrackProgressBar deck={this.props.deck}/>
       <div id="video-volume">
         <YouTubeVideo
@@ -70,7 +71,6 @@ class Deck extends Component {
         / >
       </div>
       <p>Volume: {volume}</p>
-      <p>{convertElapsedTime(position)}/{convertElapsedTime(duration)}</p>
       <button onClick={this.handleRestartTrack}>
         Back to Start
       </button>
