@@ -46,33 +46,34 @@ class Deck extends Component {
 
     return(
       <div className="five columns deck">
-      <div>
-      <p>{this.props.deck.track.title}</p>
-      <p>{convertElapsedTime(position)}/{convertElapsedTime(duration)}</p>
-      <TrackProgressBar deck={this.props.deck}/>
-      <div id="video-volume">
-        <YouTubeVideo
-          position={this.props.deck.status.position}
-          videoId={this.props.deck.track.youtubeId}
-          playing={this.props.deck.status.playing}
-          volume={volume}
-          playerVars={{
-            controls: 0
-          }}
+        <div className="deck-track-info">
+          <div className="row">
+            <p className="eight columns deck-track-name">{this.props.deck.track.title}</p>
+            <p className="three columns deck-track-time">{convertElapsedTime(position)}/{convertElapsedTime(duration)}</p>
+          </div>
+          <TrackProgressBar deck={this.props.deck}/>
+        </div>
+        <div id="video">
+          <YouTubeVideo
+            position={this.props.deck.status.position}
+            videoId={this.props.deck.track.youtubeId}
+            playing={this.props.deck.status.playing}
+            volume={volume}
+            playerVars={{
+              controls: 0
+            }}
 
-          onReady={this.handleOnReady}
-          onProgress={this.handleSetPosition}
-        / >
-      </div>
-      <p>Volume: {volume}</p>
-      <button onClick={this.handleRestartTrack}>
-        Back to Start
-      </button>
-      <button onClick={this.handleTogglePlaying}>
-        {this.props.deck.status.playing ? "Pause" : "Play"}
-      </button>
-      </div>
-      <br />
+            onReady={this.handleOnReady}
+            onProgress={this.handleSetPosition}
+          / >
+        </div>
+        <p>Volume: {volume}</p>
+        <button onClick={this.handleRestartTrack}>
+          Back to Start
+        </button>
+        <button onClick={this.handleTogglePlaying}>
+          {this.props.deck.status.playing ? "Pause" : "Play"}
+        </button>
       </div>
     )
 

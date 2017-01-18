@@ -13,11 +13,12 @@ iframe {
 .board {
   text-align: center;
   width: 1800px;
-}
-
-.deck {
   height: 700px;
 }
+
+/*********
+DECK
+*********/
 
 /*********
 TRACK PROGRESS BAR
@@ -34,7 +35,7 @@ VOLUME
 
 #volume-slider {
   margin: 0 50px;
-  height: 150px;
+  height: 200px;
   display: inline-block;
 }
 
