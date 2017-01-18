@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Search from './Search'
 import Mixer from './Mixer'
+import Queue from './Queue'
+import Search from './Search'
 import SideBar from './SideBar'
 
 export default class App extends Component {
@@ -12,6 +13,7 @@ export default class App extends Component {
         <div className="board row">
           <Mixer />
         </div>
+        <Queue />
         <Search />
         <SideBar />
       </div>

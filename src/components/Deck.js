@@ -45,7 +45,7 @@ class Deck extends Component {
     }
 
     return(
-      <div className="five columns">
+      <div className="five columns deck">
       <div>
       <p>{this.props.deck.track.title}</p>
       <p>{convertElapsedTime(position)}/{convertElapsedTime(duration)}</p>
@@ -53,7 +53,7 @@ class Deck extends Component {
       <div id="video-volume">
         <YouTubeVideo
           position={this.props.deck.status.position}
-          videoId={this.props.deck.track.id}
+          videoId={this.props.deck.track.youtubeId}
           playing={this.props.deck.status.playing}
           volume={volume}
           playerVars={{

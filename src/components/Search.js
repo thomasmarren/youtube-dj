@@ -13,7 +13,7 @@ function Search(props){
   return(
     <div>
       <form onSubmit={handleOnSubmit.bind(props)}>
-        <input type='text' placeholder="90s Hip Hop"/>
+        <input id="search-input" type='text' placeholder="90s Hip Hop"/>
         <input type='submit' value="Search" />
       </form>
     </div>

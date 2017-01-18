@@ -11,7 +11,7 @@ class Mixer extends Component {
     return(
       <div>
         <Deck deck={this.props.deck1} />
-        <div id="controller" className="two columns">
+        <div id="controller" className="two columns deck">
           <VolumeSlider id={"left-volume"} deck={this.props.deck1}/>
           <VolumeSlider id={"right-volume"} deck={this.props.deck2}/>
           <br />

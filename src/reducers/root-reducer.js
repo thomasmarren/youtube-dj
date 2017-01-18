@@ -1,12 +1,23 @@
 import { combineReducers } from 'redux'
 
-const defaultDeck1 = {id: 'A-tE4Is0I5M', title: 'MF DOOM - My Favorite Ladies'}
-const defaultDeck2 = {id: 'UuHHzRuSVYQ', title: 'Gramatik - Dungeon Sound'}
+const defaultDeck1 = {youtubeId: 'A-tE4Is0I5M', title: 'MF DOOM - My Favorite Ladies'}
+const defaultDeck2 = {youtubeId: 'UuHHzRuSVYQ', title: 'Gramatik - Dungeon Sound'}
 
-function tracks(state = [], action){
+function tracks(state = [defaultDeck1, defaultDeck2], action){
   switch (action.type) {
     case "FETCH_TRACKS":
       return action.payload.tracks
+    default:
+      return state
+  }
+}
+
+function queue(state = [], action){
+  switch (action.type) {
+    case "ADD_TO_QUEUE":
+      return [...state, action.payload.track]
+    case "REMOVE_FROM_QUEUE":
+      return action.payload
     default:
       return state
   }
@@ -26,7 +37,7 @@ function crossFader(state = {slider: 50}, action){
 function deck1(state = {
   position: '1',
   track: {
-    id: defaultDeck1.id,
+    youtubeId: defaultDeck1.youtubeId,
     title: defaultDeck1.title
   },
   crossFader: {
@@ -41,7 +52,7 @@ function deck1(state = {
   }}, action){
   switch (action.type) {
     case 'LOAD_DECK_1':
-      return {...state, track: {id: action.payload.id, title: action.payload.title}}
+      return {...state, track: {id: action.payload.youtubeId, title: action.payload.title}}
     case 'SET_DURATION_DECK_1':
       return {...state, status: {...state.status, duration: action.payload.duration}}
     case 'SET_POSITION_DECK_1':
@@ -63,7 +74,7 @@ function deck1(state = {
 function deck2(state = {
   position: '2',
   track: {
-    id: defaultDeck2.id,
+    youtubeId: defaultDeck2.youtubeId,
     title: defaultDeck2.title
   },
   crossFader: {
@@ -78,7 +89,7 @@ function deck2(state = {
   }}, action){
   switch (action.type) {
     case 'LOAD_DECK_2':
-      return {...state, track: {id: action.payload.id, title: action.payload.title}}
+      return {...state, track: {youtubeId: action.payload.youtubeId, title: action.payload.title}}
     case 'SET_DURATION_DECK_2':
       return {...state, status: {...state.status, duration: action.payload.duration}}
     case 'SET_POSITION_DECK_2':
@@ -106,6 +117,6 @@ function pagination(state = {}, action){
   }
 }
 
-const rootReducer = combineReducers({tracks, crossFader, deck1, deck2, pagination})
+const rootReducer = combineReducers({tracks, queue, crossFader, deck1, deck2, pagination})
 
 export default rootReducer

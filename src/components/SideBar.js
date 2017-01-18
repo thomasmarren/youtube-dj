@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 
 function SideBar(props){
 
-  let sideBar = props.sideBarTracks.map((sideBarTrack) => {
-    return <SideBarTrack id={sideBarTrack.id} title={sideBarTrack.title} thumbnail={sideBarTrack.thumbnail}/>
+  let sideBar = props.tracks.map((track, i) => {
+    return <SideBarTrack key={i} youtubeId={track.youtubeId} title={track.title} thumbnail={track.thumbnail}/>
   })
 
   return(
@@ -20,7 +20,7 @@ function SideBar(props){
 }
 
 function mapStateToProps(state){
-  return { sideBarTracks: state.tracks }
+  return { tracks: state.tracks }
 }
 
 export default connect(mapStateToProps)(SideBar);

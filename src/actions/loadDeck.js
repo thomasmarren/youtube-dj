@@ -1,6 +1,6 @@
-export function loadDeck(id,title,deck){
+export default function loadDeck(youtubeId,title,deck){
   return {
     type: `LOAD_DECK_${deck}`,
-    payload: {id: id, title: title}
+    payload: {youtubeId: youtubeId, title: title}
   }
 }

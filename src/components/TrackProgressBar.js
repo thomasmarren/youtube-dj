@@ -47,12 +47,10 @@ class TrackProgressBar extends Component {
   }
 
   handleMouseDown(){
-    this.refs.myCanvas.style.cursor = "-webkit-grabbing"
     this.setState({mouseDown: true})
   }
 
   handleMouseUp(){
-    this.refs.myCanvas.style.cursor = "-webkit-grab"
     this.setState({mouseDown: false})
   }
 
@@ -69,7 +67,7 @@ class TrackProgressBar extends Component {
     return(
       <div>
         <canvas
-          style={{"backgroundImage": "url('/images/waves.jpg')", "cursor": "-webkit-grab"}}
+          style={{"backgroundImage": "url('/images/waves.jpg')", "cursor": "col-resize"}}
           ref="myCanvas"
           width="500"
           height="80"
@@ -79,7 +77,7 @@ class TrackProgressBar extends Component {
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.handleMouseUp}
         />
-        <img ref="coverWaves" src="/images/cover-waves.png" style={{"display": "none"}}/>
+        <img role="presentation" ref="coverWaves" src="/images/cover-waves.png" style={{"display": "none"}}/>
       </div>
     )
   }
