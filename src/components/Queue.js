@@ -13,7 +13,7 @@ class Queue extends Component{
   handleClick(event){
     let youtubeId = event.currentTarget.dataset.youtubeid
     let newQueue = []
-    this.props.queue.forEach( track => {
+    this.props.queue.tracks.forEach( track => {
       if(track.youtubeId !== youtubeId){
         newQueue.push(track)
       }
@@ -23,7 +23,7 @@ class Queue extends Component{
 
   render(){
 
-    var list = this.props.queue.map( (track, i) => {
+    var list = this.props.queue.tracks.map( (track, i) => {
       return <li
         key={i}
         data-youtubeId={track.youtubeId}

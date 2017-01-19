@@ -6,6 +6,9 @@ import setDuration from '../actions/setDuration'
 import setPosition from '../actions/setPosition'
 import togglePlaying from '../actions/togglePlaying'
 import restartTrack from '../actions/restartTrack'
+import loadDeck from '../actions/loadDeck'
+import deckLoaded from '../actions/deckLoaded'
+import removeFromQueue from '../actions/removeFromQueue'
 import TrackProgressBar from './TrackProgressBar'
 
 class Deck extends Component {
@@ -20,9 +23,26 @@ class Deck extends Component {
 
   handleOnReady({ duration }) {
     this.props.setDuration(duration, this.props.deck)
+    this.props.deckLoaded(this.props.deck)
   }
 
   handleSetPosition(position) {
+    if(this.props.queue.autoplay && !this.props.deck.status.loading && this.props.deck.status.duration < (this.props.deck.status.position + 1000)){
+      console.log("loading deck")
+      this.props.togglePlaying(!this.props.deck.status.playing, this.props.deck)
+      let nextTrack = this.props.queue.tracks[0]
+      this.props.loadDeck(nextTrack.youtubeId, nextTrack.title, this.props.deck.position)
+      let youtubeId = nextTrack.youtubeId
+      let newQueue = []
+      this.props.queue.tracks.forEach( track => {
+        if(track.youtubeId !== youtubeId){
+          newQueue.push(track)
+        }
+      })
+      this.props.removeFromQueue(newQueue)
+    } else if(this.props.queue.autoplay && !this.props.fading && this.props.deck.status.position > (this.props.deck.status.duration - 20000)){
+      this.props.handleAutoplay(this.props.deck)
+    }
     this.props.setPosition(position, this.props.deck);
   }
 
@@ -43,6 +63,8 @@ class Deck extends Component {
     if(this.props.deck.crossFader.active){
       volume = Math.floor(((this.props.deck.crossFader.ratio * 2) * .01) * this.props.deck.status.volume)
     }
+
+    var playButtonBg = this.props.deck.status.playing ? "#17e672" : "white"
 
     return(
       <div className="five columns deck">
@@ -69,10 +91,10 @@ class Deck extends Component {
         </div>
         <p>Volume: {volume}</p>
         <button onClick={this.handleRestartTrack}>
-          Back to Start
+          <i className="fa fa-fast-backward fa-lg" aria-hidden="true"></i>
         </button>
-        <button onClick={this.handleTogglePlaying}>
-          {this.props.deck.status.playing ? "Pause" : "Play"}
+        <button style={{"background-color": playButtonBg}} onClick={this.handleTogglePlaying}>
+          <i className="fa fa-play fa-lg" aria-hidden="true"></i>
         </button>
       </div>
     )
@@ -87,8 +109,15 @@ class Deck extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({ setDuration, setPosition, restartTrack, togglePlaying }, dispatch)
+function mapStateToProps(state){
+  return {
+    fading: state.crossFader.fading,
+    queue: state.queue
+  }
 }
 
-export default connect(null, mapDispatchToProps)(Deck);
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({ setDuration, setPosition, restartTrack, togglePlaying, loadDeck, removeFromQueue, deckLoaded }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Deck);

@@ -12,23 +12,27 @@ function tracks(state = [defaultDeck1, defaultDeck2], action){
   }
 }
 
-function queue(state = [], action){
+function queue(state = {tracks: [], autoplay: false}, action){
   switch (action.type) {
     case "ADD_TO_QUEUE":
-      return [...state, action.payload.track]
+      return {...state, tracks: [...state.tracks, action.payload.track]}
     case "REMOVE_FROM_QUEUE":
-      return action.payload
+      return {...state, tracks: action.payload}
+    case "TOGGLE_AUTOPLAY":
+      return {...state, autoplay: action.payload}
     default:
       return state
   }
 }
 
-function crossFader(state = {slider: 50}, action){
+function crossFader(state = {slider: 50, fading: false}, action){
   switch (action.type) {
     case 'CROSS_FADE_DECK_1':
     case 'CROSS_FADE_DECK_2':
     case 'RESET_CROSS_FADE':
-      return {slider: action.payload.slider}
+      return {...state, slider: action.payload.slider}
+    case 'ENABLE_FADING':
+      return {...state, fading: action.payload}
     default:
       return state
   }
@@ -48,13 +52,16 @@ function deck1(state = {
     volume: 100,
     position: 0,
     duration: 0,
-    playing: false
+    playing: false,
+    loading: false
   }}, action){
   switch (action.type) {
     case 'LOAD_DECK_1':
-      return {...state, track: {id: action.payload.youtubeId, title: action.payload.title}}
+      return {...state, status: {...state.status, position: 0, playing: false, loading: true}, track: {youtubeId: action.payload.youtubeId, title: action.payload.title}}
+    case 'DECK_1_LOADED':
+      return {...state, status: {...state.status, loading: false}}
     case 'SET_DURATION_DECK_1':
-      return {...state, status: {...state.status, duration: action.payload.duration}}
+      return {...state, status: {...state.status, position: 0, playing: false, duration: action.payload.duration}}
     case 'SET_POSITION_DECK_1':
       return {...state, status: {...state.status, position: action.payload.position}}
     case 'TOGGLE_PLAYING_DECK_1':
@@ -85,13 +92,16 @@ function deck2(state = {
     volume: 100,
     position: 0,
     duration: 0,
-    playing: false
+    playing: false,
+    loading: false
   }}, action){
   switch (action.type) {
     case 'LOAD_DECK_2':
-      return {...state, track: {youtubeId: action.payload.youtubeId, title: action.payload.title}}
+      return {...state, status: {...state.status, position: 0, playing: false, loading: true}, track: {youtubeId: action.payload.youtubeId, title: action.payload.title}}
+    case 'DECK_2_LOADED':
+      return {...state, status: {...state.status, loading: false}}
     case 'SET_DURATION_DECK_2':
-      return {...state, status: {...state.status, duration: action.payload.duration}}
+      return {...state, status: {...state.status, position: 0, playing: false, duration: action.payload.duration}}
     case 'SET_POSITION_DECK_2':
       return {...state, status: {...state.status, position: action.payload.position}}
     case 'TOGGLE_PLAYING_DECK_2':

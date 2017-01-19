@@ -1,11 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import VolumeSlider from './VolumeSlider'
 import CrossFader from './CrossFader'
+import toggleAutoplay from '../actions/toggleAutoplay'
 
 class Controller extends Component {
 
+  constructor(props){
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(){
+    this.props.toggleAutoplay(this.props.queue)
+  }
+
   render(){
+
+    var buttonColor = this.props.queue.autoplay ? "red" : "white"
+    var buttonText = this.props.queue.autoplay ? "white" : "black"
 
     return(
       <div id="controller" className="two columns deck">
@@ -14,6 +28,8 @@ class Controller extends Component {
         <br />
         <br />
         <CrossFader />
+        <br />
+        <button style={{"background-color": buttonColor, "color": buttonText}} onClick={this.handleClick}>Autoplay</button>
       </div>
     )
   }
@@ -22,8 +38,13 @@ class Controller extends Component {
 function mapStateToProps(state){
   return {
     deck1: state.deck1,
-    deck2: state.deck2
+    deck2: state.deck2,
+    queue: state.queue
   }
 }
 
-export default connect(mapStateToProps)(Controller);
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({ toggleAutoplay }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Controller);

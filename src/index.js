@@ -5,7 +5,7 @@ import store from './store'
 import { Provider } from 'react-redux'
 import { fetchTracks } from './actions/fetchTracks'
 
-store.dispatch(fetchTracks('90s Hip Hop'))
+store.dispatch(fetchTracks('Dr. Dre'))
 
 ReactDOM.render(<Provider store={store}>
   <App />
