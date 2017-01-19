@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 const defaultDeck1 = {youtubeId: 'A-tE4Is0I5M', title: 'MF DOOM - My Favorite Ladies'}
 const defaultDeck2 = {youtubeId: 'UuHHzRuSVYQ', title: 'Gramatik - Dungeon Sound'}
 
-function tracks(state = [defaultDeck1, defaultDeck2], action){
+function tracks(state = [], action){
   switch (action.type) {
     case "FETCH_TRACKS":
       return action.payload.tracks

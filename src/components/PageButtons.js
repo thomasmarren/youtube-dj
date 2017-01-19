@@ -18,15 +18,15 @@ function PageButtons(props){
     }
   }
 
-  var previousButton = <a className="previous-button" onClick={handlePageMove.bind(props)}>Previous</a>
-  if (props.prevPageToken === undefined){
-    previousButton = <a className="previous-button" style={{visibility: 'hidden'}} onClick={handlePageMove.bind(props)}>Previous</a>
+  var previousButton = <a className="pagination-button" onClick={handlePageMove.bind(props)}>Previous</a>
+  if (typeof props.prevPageToken !== 'string'){
+    previousButton = <a className="pagination-button" style={{visibility: 'hidden'}} onClick={handlePageMove.bind(props)}>Previous</a>
   }
 
   return(
-    <div>
+    <div id="pagination-buttons">
       {previousButton}
-      <a onClick={handlePageMove.bind(props)}>Next</a>
+      <a className="pagination-button" onClick={handlePageMove.bind(props)}>Next</a>
     </div>
   )
 

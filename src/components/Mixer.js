@@ -54,7 +54,7 @@ class Mixer extends Component {
   render(){
 
     return(
-      <div>
+      <div className="board">
         <Deck deck={this.props.deck1} handleAutoplay={this.handleAutoplay} />
         <Controller />
         <Deck deck={this.props.deck2} handleAutoplay={this.handleAutoplay} />

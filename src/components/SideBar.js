@@ -10,10 +10,11 @@ function SideBar(props){
   })
 
   return(
-    <div>
-      <div>
+    <div id="sidebar">
+      <PageButtons />
+      <ul id="sidebar-tracks">
         {sideBar}
-      </div>
+      </ul>
       <PageButtons />
     </div>
   )

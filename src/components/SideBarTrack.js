@@ -17,16 +17,15 @@ function SideBarTrack(props){
   }
 
   return(
-    <div>
-        <li>
-          <img alt={props.title} src={props.thumbnail} />
-          <br />
-          <p>{props.title}</p>
-        </li>
-      <button data-youtubeid={props.youtubeId} data-title={props.title} onClick={handleAddToQueue.bind(props)}>Add to Queue</button>
-      <button data-deck="1" data-youtubeid={props.youtubeId} data-title={props.title} onClick={handleOnClick.bind(props)}>Load Deck 1</button>
-      <button data-deck="2" data-youtubeid={props.youtubeId} data-title={props.title} onClick={handleOnClick.bind(props)}>Load Deck 2</button>
-    </div>
+    <li id="sidebar-track">
+      <img alt={props.title} src={props.thumbnail} />
+      <p>{props.title}</p>
+      <div className="sidebar-track-buttons">
+        <button className="default-button" data-youtubeid={props.youtubeId} data-title={props.title} onClick={handleAddToQueue.bind(props)}>Add to Queue</button>
+        <button className="default-button" data-deck="1" data-youtubeid={props.youtubeId} data-title={props.title} onClick={handleOnClick.bind(props)}>Load Deck 1</button>
+        <button className="default-button" data-deck="2" data-youtubeid={props.youtubeId} data-title={props.title} onClick={handleOnClick.bind(props)}>Load Deck 2</button>
+      </div>
+    </li>
   )
 }
 

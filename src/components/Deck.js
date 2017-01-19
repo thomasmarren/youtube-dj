@@ -64,14 +64,20 @@ class Deck extends Component {
       volume = Math.floor(((this.props.deck.crossFader.ratio * 2) * .01) * this.props.deck.status.volume)
     }
 
-    var playButtonBg = this.props.deck.status.playing ? "#17e672" : "white"
+    var title = this.props.deck.track.title
+    if(title.length > 40){
+      title = this.props.deck.track.title.split("").splice(0,40).join("") + "..."
+    }
+
+    // Styles
+    var playButtonClass = this.props.deck.status.playing ? "play-button-active" : "default-button"
 
     return(
-      <div className="five columns deck">
-        <div className="deck-track-info">
-          <div className="row">
-            <p className="eight columns deck-track-name">{this.props.deck.track.title}</p>
-            <p className="three columns deck-track-time">{convertElapsedTime(position)}/{convertElapsedTime(duration)}</p>
+      <div className="deck">
+        <div className="track-info">
+          <div className="track-title-time">
+            <p className="track-title">{title}</p>
+            <p className="track-time">{convertElapsedTime(position)}/{convertElapsedTime(duration)}</p>
           </div>
           <TrackProgressBar deck={this.props.deck}/>
         </div>
@@ -82,7 +88,9 @@ class Deck extends Component {
             playing={this.props.deck.status.playing}
             volume={volume}
             playerVars={{
-              controls: 0
+              controls: 0,
+              showinfo: 0,
+              rel: 0
             }}
 
             onReady={this.handleOnReady}
@@ -90,10 +98,10 @@ class Deck extends Component {
           / >
         </div>
         <p>Volume: {volume}</p>
-        <button onClick={this.handleRestartTrack}>
+        <button className="default-button" onClick={this.handleRestartTrack}>
           <i className="fa fa-fast-backward fa-lg" aria-hidden="true"></i>
         </button>
-        <button style={{"background-color": playButtonBg}} onClick={this.handleTogglePlaying}>
+        <button className={playButtonClass} onClick={this.handleTogglePlaying}>
           <i className="fa fa-play fa-lg" aria-hidden="true"></i>
         </button>
       </div>

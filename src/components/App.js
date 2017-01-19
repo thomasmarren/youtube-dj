@@ -8,11 +8,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="app">
         <h2>YouTube DJ</h2>
-        <div className="board row">
-          <Mixer />
-        </div>
+        <Mixer />
         <Queue />
         <Search />
         <SideBar />

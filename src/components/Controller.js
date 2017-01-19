@@ -18,18 +18,17 @@ class Controller extends Component {
 
   render(){
 
-    var buttonColor = this.props.queue.autoplay ? "red" : "white"
-    var buttonText = this.props.queue.autoplay ? "white" : "black"
+    var autoplayButton = this.props.queue.autoplay ? "autoplay-button-active" : "default-button"
 
     return(
-      <div id="controller" className="two columns deck">
+      <div id="" className="controller">
         <VolumeSlider id={"left-volume"} deck={this.props.deck1}/>
         <VolumeSlider id={"right-volume"} deck={this.props.deck2}/>
         <br />
         <br />
         <CrossFader />
         <br />
-        <button style={{"background-color": buttonColor, "color": buttonText}} onClick={this.handleClick}>Autoplay</button>
+        <button className={autoplayButton} onClick={this.handleClick}>Autoplay</button>
       </div>
     )
   }

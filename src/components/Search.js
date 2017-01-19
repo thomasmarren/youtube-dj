@@ -7,14 +7,18 @@ function Search(props){
 
   function handleOnSubmit(event){
     event.preventDefault()
+    let searchTerm = event.currentTarget.children[0].value
+    if(searchTerm === ""){
+      searchTerm = document.getElementById("search-input").placeholder
+    }
     props.fetchTracks(event.currentTarget.children[0].value)
   }
 
   return(
-    <div>
+    <div id="search">
       <form onSubmit={handleOnSubmit.bind(props)}>
         <input id="search-input" type='text' placeholder="dr dre"/>
-        <input type='submit' value="Search" />
+        <input className="default-button" type='submit' value="Search" />
       </form>
     </div>
   )
