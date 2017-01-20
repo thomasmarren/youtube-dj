@@ -40,7 +40,7 @@ class Queue extends Component{
 
     var list
     if(this.props.queue.tracks.length === 0){
-      list = "Queue empty"
+      list = "Empty"
     } else {
       list = this.props.queue.tracks.map( (track, i) => {
         return <tr>

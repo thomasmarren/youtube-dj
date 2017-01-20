@@ -107,7 +107,7 @@ class Deck extends Component {
             onProgress={onProgress}
           / >
         </div>
-        <p>Volume: {volume}</p>
+        <br />
         <button className="default-button" onClick={this.handleRestartTrack}>
           <i className="fa fa-fast-backward fa-lg" aria-hidden="true"></i>
         </button>
