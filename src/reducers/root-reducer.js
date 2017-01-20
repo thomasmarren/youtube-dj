@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-const defaultDeck1 = {youtubeId: 'A-tE4Is0I5M', title: 'MF DOOM - My Favorite Ladies'}
-const defaultDeck2 = {youtubeId: 'UuHHzRuSVYQ', title: 'Gramatik - Dungeon Sound'}
+const defaultDeck1 = {youtubeId: 'A-tE4Is0I5M', title: 'MF DOOM - My Favorite Ladies', thumbnail: 'https://i.ytimg.com/vi/A-tE4Is0I5M/default.jpg'}
+const defaultDeck2 = {youtubeId: 'UuHHzRuSVYQ', title: 'Gramatik - Dungeon Sound', thumbnail: 'https://i.ytimg.com/vi/UuHHzRuSVYQ/default.jpg'}
 
 function searchTerm(state = "", action){
   switch (action.type) {
@@ -13,6 +13,8 @@ function searchTerm(state = "", action){
 }
 
 function tracks(state = [
+  defaultDeck1,
+  defaultDeck2,
   {
     youtubeId: "p0iR-2QoJDc",
     title: "A Tribe Called Quest - Check The Rhime (Official Video)",
