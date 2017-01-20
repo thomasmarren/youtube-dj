@@ -9,7 +9,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="app">
-        <h2 id="logo">YouTube DJ</h2>
+        <h2 id="logo">The YouTube DJ</h2>
         <Mixer />
         <Queue />
         <div id="search-container">
