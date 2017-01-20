@@ -21,7 +21,7 @@ export function fetchTracks(searchTerm, token = ''){
       var tokens = {nextPageToken: nextPageToken, prevPageToken: prevPageToken}
       dispatch({
         type: "FETCH_TRACKS",
-        payload: {tracks, tokens}
+        payload: {tracks, tokens, searchTerm: searchTerm}
       })
     })
   }

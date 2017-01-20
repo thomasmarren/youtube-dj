@@ -7,14 +7,14 @@ function PageButtons(props){
 
   function handlePageMove(event){
     event.preventDefault()
-    var searchTerm = document.getElementById('search-input').value
-    if (searchTerm === ""){
-      searchTerm = document.getElementById('search-input').placeholder
-    }
-    if(event.currentTarget.innerHTML === 'Next'){
-      props.fetchTracks(searchTerm, props.nextPageToken)
-    } else {
-      props.fetchTracks(searchTerm, props.prevPageToken)
+    var searchTerm = props.searchTerm
+    if(searchTerm === ""){ return }
+    else {
+      if(event.currentTarget.innerHTML === 'Next'){
+        props.fetchTracks(searchTerm, props.nextPageToken)
+      } else {
+        props.fetchTracks(searchTerm, props.prevPageToken)
+      }
     }
   }
 
@@ -34,6 +34,7 @@ function PageButtons(props){
 
 function mapStateToProps(state){
   return {
+    searchTerm: state.searchTerm,
     nextPageToken: state.pagination.nextPageToken,
     prevPageToken: state.pagination.prevPageToken
   }

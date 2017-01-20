@@ -1,34 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { fetchTracks } from '../actions/fetchTracks';
 import { bindActionCreators } from'redux';
 import { connect } from 'react-redux';
 
-function Search(props){
+class Search extends Component {
 
-  function handleOnSubmit(event){
-    event.preventDefault()
-    let searchTerm = event.currentTarget.children[0].value
-    if(searchTerm === ""){
-      searchTerm = document.getElementById("search-input").placeholder
-    }
-    props.fetchTracks(event.currentTarget.children[0].value)
+  constructor(props){
+    super(props)
+    this.state = {search: ""}
+    this.handleOnChange = this.handleOnChange.bind(this)
+    this.handleOnSubmit = this.handleOnSubmit.bind(this)
   }
 
-  return(
-    <div id="search">
-      <form onSubmit={handleOnSubmit.bind(props)}>
-        <input id="search-input" type='text' placeholder="dr dre"/>
-        <input className="default-button" type='submit' value="Search" />
-      </form>
-    </div>
-  )
+  handleOnChange(event){
+    this.setState({search: event.target.value})
+  }
 
+  handleOnSubmit(event){
+    let searchTerm = this.state.search
+    if(searchTerm === ""){
+      alert("Please enter a search term")
+    }
+    this.props.fetchTracks(searchTerm)
+  }
+
+  render(){
+    return(
+      <div id="search">
+      <input onChange={this.handleOnChange} id="search-input" type='text' placeholder="Search"/>
+      <button onClick={this.handleOnSubmit} className="default-button"><i className="fa fa-search" aria-hidden="true"></i></button>
+      </div>
+    )
+  }
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({
-    fetchTracks: fetchTracks,
-  }, dispatch)
+  return bindActionCreators({ fetchTracks }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Search);

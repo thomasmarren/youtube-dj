@@ -3,7 +3,37 @@ import { combineReducers } from 'redux'
 const defaultDeck1 = {youtubeId: 'A-tE4Is0I5M', title: 'MF DOOM - My Favorite Ladies'}
 const defaultDeck2 = {youtubeId: 'UuHHzRuSVYQ', title: 'Gramatik - Dungeon Sound'}
 
-function tracks(state = [], action){
+function searchTerm(state = "", action){
+  switch (action.type) {
+  case "FETCH_TRACKS":
+    return action.payload.searchTerm
+  default:
+    return state
+  }
+}
+
+function tracks(state = [
+  {
+    youtubeId: "p0iR-2QoJDc",
+    title: "A Tribe Called Quest - Check The Rhime (Official Video)",
+    thumbnail: "https://i.ytimg.com/vi/p0iR-2QoJDc/default.jpg"
+  },
+  {
+    youtubeId: "cM4kqL13jGM",
+    title: "Digable Planets - Rebirth Of Slick (Cool Like Dat)",
+    thumbnail: "https://i.ytimg.com/vi/cM4kqL13jGM/default.jpg"
+  },
+  {
+    youtubeId: "P8-9mY-JACM",
+    title: "De La Soul - Me Myself And I",
+    thumbnail: "https://i.ytimg.com/vi/P8-9mY-JACM/default.jpg"
+  },
+  {
+    youtubeId: "4cj8zZmFbds",
+    title: "Jungle Brothers - 'Because I Got It Like That'",
+    thumbnail: "https://i.ytimg.com/vi/4cj8zZmFbds/default.jpg"
+  }
+], action){
   switch (action.type) {
     case "FETCH_TRACKS":
       return action.payload.tracks
@@ -127,6 +157,6 @@ function pagination(state = {}, action){
   }
 }
 
-const rootReducer = combineReducers({tracks, queue, crossFader, deck1, deck2, pagination})
+const rootReducer = combineReducers({searchTerm, tracks, queue, crossFader, deck1, deck2, pagination})
 
 export default rootReducer

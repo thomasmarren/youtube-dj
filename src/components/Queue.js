@@ -40,11 +40,11 @@ class Queue extends Component{
 
     var list
     if(this.props.queue.tracks.length === 0){
-      list = "Empty"
+      list = <tr><td>Empty</td></tr>
     } else {
       list = this.props.queue.tracks.map( (track, i) => {
-        return <tr>
-        <td key={i}> {track.title} </td>
+        return <tr key={i}>
+        <td> {track.title} </td>
         <td data-deck="1" data-youtubeid={track.youtubeId} data-title={track.title} onClick={this.handleLoadDeck}>Load Deck 1</td>
         <td data-deck="2" data-youtubeid={track.youtubeId} data-title={track.title} onClick={this.handleLoadDeck}>Load Deck 2</td>
         <td style={{"color": "red"}} data-youtubeId={track.youtubeId} onClick={this.handleClick}>Remove</td>
@@ -57,7 +57,9 @@ class Queue extends Component{
         <div id="queue">
           <h2>Queue:</h2>
           <table>
+            <tbody>
             {list}
+            </tbody>
           </table>
         </div>
       </div>
