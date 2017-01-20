@@ -17,6 +17,7 @@ class Deck extends Component {
     super(props)
     this.handleOnReady = this.handleOnReady.bind(this)
     this.handleSetPosition = this.handleSetPosition.bind(this)
+    this.handleSetPositionAutoplay = this.handleSetPositionAutoplay.bind(this)
     this.handleRestartTrack = this.handleRestartTrack.bind(this)
     this.handleTogglePlaying = this.handleTogglePlaying.bind(this)
   }
@@ -27,8 +28,11 @@ class Deck extends Component {
   }
 
   handleSetPosition(position) {
-    if(this.props.queue.autoplay && !this.props.deck.status.loading && this.props.deck.status.duration < (this.props.deck.status.position + 1000)){
-      console.log("loading deck")
+    this.props.setPosition(position, this.props.deck)
+  }
+
+  handleSetPositionAutoplay(position){
+    if(!this.props.deck.status.loading && this.props.deck.status.duration < (this.props.deck.status.position + 1000)){
       this.props.togglePlaying(!this.props.deck.status.playing, this.props.deck)
       let nextTrack = this.props.queue.tracks[0]
       this.props.loadDeck(nextTrack.youtubeId, nextTrack.title, this.props.deck.position)
@@ -40,10 +44,11 @@ class Deck extends Component {
         }
       })
       this.props.removeFromQueue(newQueue)
-    } else if(this.props.queue.autoplay && !this.props.fading && this.props.deck.status.position > (this.props.deck.status.duration - 20000)){
+    } else if(!this.props.crossFader.fading && this.props.deck.status.position > (this.props.deck.status.duration - 30000)){
+      // passed down from Mixer
       this.props.handleAutoplay(this.props.deck)
     }
-    this.props.setPosition(position, this.props.deck);
+    this.props.setPosition(position, this.props.deck)
   }
 
   handleRestartTrack() {
@@ -67,6 +72,11 @@ class Deck extends Component {
     var title = this.props.deck.track.title
     if(title.length > 40){
       title = this.props.deck.track.title.split("").splice(0,40).join("") + "..."
+    }
+
+    var onProgress = this.handleSetPosition
+    if(this.props.queue.autoplay){
+      onProgress = this.handleSetPositionAutoplay
     }
 
     // Styles
@@ -94,7 +104,7 @@ class Deck extends Component {
             }}
 
             onReady={this.handleOnReady}
-            onProgress={this.handleSetPosition}
+            onProgress={onProgress}
           / >
         </div>
         <p>Volume: {volume}</p>
@@ -119,7 +129,7 @@ class Deck extends Component {
 
 function mapStateToProps(state){
   return {
-    fading: state.crossFader.fading,
+    crossFader: state.crossFader,
     queue: state.queue
   }
 }

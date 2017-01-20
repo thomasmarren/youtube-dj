@@ -43,27 +43,23 @@ class Queue extends Component{
       list = "Queue empty"
     } else {
       list = this.props.queue.tracks.map( (track, i) => {
-        return <li
-        key={i}
-        data-youtubeId={track.youtubeId}
-        data-title={track.title}
-        >
-        {track.title}
-        <button className="default-button" data-deck="1" data-youtubeid={track.youtubeId} data-title={track.title} onClick={this.handleLoadDeck}>Load Deck 1</button>
-        <button className="default-button" data-deck="2" data-youtubeid={track.youtubeId} data-title={track.title} onClick={this.handleLoadDeck}>Load Deck 2</button>
-        <span style={{"margin-left": "10px", "color": "red", "cursor": "pointer"}} data-youtubeId={track.youtubeId} onClick={this.handleClick}>
-        <i className="fa fa-times fa-lrg" aria-hidden="true"></i>
-        </span>
-        </li>
+        return <tr>
+        <td key={i}> {track.title} </td>
+        <td data-deck="1" data-youtubeid={track.youtubeId} data-title={track.title} onClick={this.handleLoadDeck}>Load Deck 1</td>
+        <td data-deck="2" data-youtubeid={track.youtubeId} data-title={track.title} onClick={this.handleLoadDeck}>Load Deck 2</td>
+        <td style={{"color": "red"}} data-youtubeId={track.youtubeId} onClick={this.handleClick}>Remove</td>
+        </tr>
       })
     }
 
     return(
-      <div id="queue">
-      <h2>Queue:</h2>
-      <ul>
-        {list}
-      </ul>
+      <div id="queue-container">
+        <div id="queue">
+          <h2>Queue:</h2>
+          <table>
+            {list}
+          </table>
+        </div>
       </div>
     )
   }

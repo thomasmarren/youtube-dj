@@ -15,37 +15,35 @@ class Mixer extends Component {
   }
 
   handleAutoplay(deck){
-    var crossFade = this.props.crossFade
+    var fade
+    var slider = this.props.crossFader.slider
     var deck1 = this.props.deck1
     var deck2 = this.props.deck2
-    var slider = this.props.crossFader.slider
+    var crossFade = this.props.crossFade
     var enableFading = this.props.enableFading
-    var fade
-    if(!this.props.crossFader.fading){
-      this.props.enableFading(true)
-      if(deck.position === "1"){
-        this.props.togglePlaying(true, this.props.deck2)
-        fade = setInterval(fadeFn, 1000)
-        function fadeFn() {
-          if (slider <= 100) {
-            crossFade(slider += 4, {deck1: deck1, deck2: deck2}, true)
-          } else {
-            crossFade(100, {deck1: deck1, deck2: deck2}, false)
-            enableFading(false)
-            clearInterval(fade)
-          }
+    this.props.enableFading(true)
+    if(deck.position === "1"){
+      this.props.togglePlaying(true, this.props.deck2)
+      fade = setInterval(fadeFn, 1000)
+      function fadeFn() {
+        if (slider <= 100) {
+          crossFade(slider += 4, {deck1: deck1, deck2: deck2}, true)
+        } else {
+          crossFade(100, {deck1: deck1, deck2: deck2}, false)
+          enableFading(false)
+          clearInterval(fade)
         }
-      } else {
-        this.props.togglePlaying(true, this.props.deck1)
-        fade = setInterval(fadeFn, 1000)
-        function fadeFn() {
-          if (slider >= 0) {
-            crossFade(slider -= 4, {deck1: deck1, deck2: deck2}, true)
-          } else {
-            crossFade(0, {deck1: deck1, deck2: deck2}, false)
-            enableFading(false)
-            clearInterval(fade)
-          }
+      }
+    } else {
+      this.props.togglePlaying(true, this.props.deck1)
+      fade = setInterval(fadeFn, 1000)
+      function fadeFn() {
+        if (slider >= 0) {
+          crossFade(slider -= 4, {deck1: deck1, deck2: deck2}, true)
+        } else {
+          crossFade(0, {deck1: deck1, deck2: deck2}, false)
+          enableFading(false)
+          clearInterval(fade)
         }
       }
     }
@@ -73,7 +71,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ crossFade, togglePlaying, enableFading }, dispatch)
+  return bindActionCreators({ togglePlaying, crossFade, enableFading }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mixer);

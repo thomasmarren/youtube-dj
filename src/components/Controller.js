@@ -21,7 +21,7 @@ class Controller extends Component {
     var autoplayButton = this.props.queue.autoplay ? "autoplay-button-active" : "default-button"
 
     return(
-      <div id="" className="controller">
+      <div className="controller">
         <VolumeSlider id={"left-volume"} deck={this.props.deck1}/>
         <VolumeSlider id={"right-volume"} deck={this.props.deck2}/>
         <br />

@@ -16,10 +16,15 @@ function SideBarTrack(props){
     props.addToQueue(data.youtubeid, data.title)
   }
 
+  var title = props.title
+  if(title.length > 40){
+    title = props.title.split("").splice(0,60).join("") + "..."
+  }
+
   return(
     <li id="sidebar-track">
       <img alt={props.title} src={props.thumbnail} />
-      <p>{props.title}</p>
+      <p>{title}</p>
       <div className="sidebar-track-buttons">
         <button className="default-button" data-youtubeid={props.youtubeId} data-title={props.title} onClick={handleAddToQueue.bind(props)}>Add to Queue</button>
         <button className="default-button" data-deck="1" data-youtubeid={props.youtubeId} data-title={props.title} onClick={handleOnClick.bind(props)}>Load Deck 1</button>
